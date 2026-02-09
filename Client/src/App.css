@@ -1,0 +1,676 @@
+body.overlay-visible {
+  overflow: hidden;
+}
+
+/* Added: proper scroll lock tied to sidebar state */
+body.sidebar-open {
+  overflow: hidden;
+}
+
+/* =====================
+   HEADER
+===================== */
+header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 11px;
+  height: 80px;
+  background-color: #fafaf8;
+  box-shadow:
+    0px 1px 3px rgba(0, 0, 0, 0.1),
+    0px 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+header img {
+  width: 50px;
+}
+
+header h1 {
+  font-weight: 300;
+}
+
+/* Header hamburger (mobile only) */
+.header-menu-btn {
+  display: none;
+  position: absolute;
+  left: 16px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  z-index: 10;
+  padding: 8px;
+}
+
+@media (max-width: 900px) {
+  .header-menu-btn {
+    display: block;
+  }
+}
+
+/* =====================
+   LAYOUT
+===================== */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* =====================
+   SIDEBAR (BASE)
+===================== */
+.sidebar {
+  background-color: #f6f5f2;
+  border-right: 1px solid #e5e7eb;
+  transition:
+    width 0.25s ease,
+    transform 0.3s ease;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.desktop {
+  position: relative;
+}
+
+.sidebar.mobile {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100vh;
+}
+
+/* =====================
+   SIDEBAR STATES
+===================== */
+
+/* Desktop expanded */
+.sidebar.desktop.open {
+  width: 280px;
+}
+
+/* Desktop collapsed */
+.sidebar.desktop.collapsed {
+  width: 64px;
+}
+
+/* Mobile open */
+.sidebar.mobile.open {
+  width: 280px;
+  transform: translateX(0);
+}
+
+/* Mobile closed */
+.sidebar.mobile.collapsed {
+  transform: translateX(-100%);
+}
+
+/* =====================
+   SIDEBAR CONTENT
+===================== */
+.sidebar-inner {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Header */
+.sidebar-header {
+  height: 50px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f6f5f2;
+  padding: 0 12px;
+  position: relative;
+  flex-shrink: 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Scrollable area */
+.sidebar-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Footer  */
+.sidebar-footer {
+  height: 50px;
+  min-height: 50px;
+  background: #f6f5f2;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #e5e7eb;
+  flex-shrink: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Make sure footer content is visible when collapsed */
+.sidebar.desktop.collapsed .sidebar-footer {
+  justify-content: center;
+  padding: 0;
+}
+
+.sidebar-logo {
+  height: 26px;
+  width: auto;
+}
+
+/* Hide content when collapsed */
+.sidebar.desktop.collapsed .sidebar-title,
+.sidebar.desktop.collapsed .sidebar-list {
+  display: none;
+}
+
+/* Hide scroll area content when collapsed but keep it in layout */
+.sidebar.desktop.collapsed .sidebar-scroll {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* =====================
+   SIDEBAR BUTTON (LOGO ↔ HAMBURGER)
+===================== */
+.sidebar-logo,
+.sidebar-btn {
+  position: static;
+  transform: none;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+/* SIDEBAR TOGGLE BUTTON */
+.sidebar-btn {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  color: #374151;
+}
+
+.sidebar-btn:hover {
+  background-color: #e7e5e4;
+}
+
+/* Header layout when expanded */
+.sidebar.desktop.open .sidebar-header {
+  justify-content: space-between;
+}
+
+/* Collapsed state - center both logo and button */
+.sidebar.desktop.collapsed .sidebar-header {
+  justify-content: center;
+  padding: 0;
+}
+
+.sidebar.desktop.collapsed .sidebar-logo,
+.sidebar.desktop.collapsed .sidebar-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+
+/* Logo visible by default when collapsed */
+.sidebar.desktop.collapsed .sidebar-logo {
+  opacity: 1;
+  display: block;
+}
+
+/* Hamburger hidden by default when collapsed */
+.sidebar.desktop.collapsed .sidebar-btn {
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+}
+
+/* Hover swap exactly on header */
+.sidebar.desktop.collapsed .sidebar-header:hover .sidebar-logo {
+  opacity: 0;
+}
+
+.sidebar.desktop.collapsed .sidebar-header:hover .sidebar-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Always show hamburger when expanded */
+.sidebar.desktop.open .sidebar-btn,
+.sidebar.mobile .sidebar-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* On mobile, always show the toggle button */
+.sidebar.mobile .sidebar-header {
+  justify-content: space-between;
+  padding: 0 12px;
+}
+
+/* =====================
+   SIDEBAR LIST
+===================== */
+.sidebar-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 16px 0 12px;
+  color: #374151;
+}
+
+.sidebar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.sidebar-item {
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #374151;
+  margin-bottom: 6px;
+  transition: background 0.2s;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.sidebar-item:hover {
+  background-color: #e7e5e4;
+  opacity: 1;
+}
+
+.sidebar-item.active {
+  background-color: #d17557;
+  color: white;
+}
+
+.sidebar-item:active {
+  transform: translateY(1px);
+}
+
+.delete-btn {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background: none;
+  cursor: pointer;
+  border: none;
+}
+
+.sidebar-item:hover .delete-btn {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .delete-btn,
+  .list-btns {
+    opacity: 1;
+  }
+}
+
+/* =====================
+   SIDEBAR FOOTER 
+===================== */
+.sidebar-user-info {
+  font-size: 0.875rem;
+  color: #374151;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 150px;
+}
+
+.sidebar.desktop.collapsed .sidebar-user-info {
+  display: none;
+}
+
+.sidebar-logout-btn {
+  background: none;
+  background-color: #141413;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s;
+}
+
+.sidebar-logout-btn:hover {
+  background: #e7e5e4;
+  color: #374151;
+}
+
+.sidebar-login-btn {
+  width: 100%;
+  height: 100%;
+  background: #d17557;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+}
+
+.sidebar-login-btn:hover {
+  background: #b5644a;
+}
+
+.sidebar.desktop.collapsed .sidebar-login-btn,
+.sidebar.desktop.collapsed .sidebar-logout-btn {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border: none;
+  background: #d17557;
+  color: white;
+}
+
+.sidebar.desktop.collapsed .sidebar-logout-btn:hover {
+  background: #b5644a;
+}
+
+/* =====================
+   OVERLAY (MOBILE)
+===================== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 30;
+  opacity: 0;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =====================
+   MAIN CONTENT
+===================== */
+main {
+  padding: 30px 30px 10px;
+  flex: 1;
+}
+
+/* =====================
+   INGREDIENT FORM
+===================== */
+.add-ingredient-form {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.add-ingredient-form input {
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  padding: 9px 13px;
+  flex-grow: 1;
+  max-width: 400px;
+  font-size: 0.875rem;
+  transition: border-color 0.2s;
+}
+
+.add-ingredient-form input:focus {
+  outline: none;
+  border-color: #d17557;
+  box-shadow: 0 0 0 3px rgba(209, 117, 87, 0.1);
+}
+
+.add-ingredient-form button {
+  border-radius: 6px;
+  border: none;
+  background-color: #141413;
+  color: #fafaf8;
+  width: 150px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  padding: 9px 0;
+}
+
+.add-ingredient-form button::before {
+  content: "+";
+  margin-right: 5px;
+}
+
+.add-ingredient-form button:hover {
+  background-color: #2a2a29;
+}
+
+.ingredient-item input {
+  background: none;
+  font-size: 1rem;
+}
+
+.list-btns {
+  background: none;
+  border: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.ingredient-item:hover .list-btns {
+  opacity: 1;
+}
+
+.get-recipe-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  background: #f0efeb;
+  padding: 10px 28px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.get-recipe-container h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.get-recipe-container p {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin: 4px 0 0;
+}
+
+.get-recipe-btn {
+  border: none;
+  border-radius: 6px;
+  background: #d17557;
+  color: #fafaf8;
+  padding: 9px 17px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.get-recipe-btn:hover {
+  background: #b5644a;
+}
+
+/* =====================
+   RECIPE CONTENT
+===================== */
+.suggested-recipe-container {
+  color: #475467;
+  line-height: 28px;
+  font-size: 1.125rem;
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.suggested-recipe-container h2 {
+  color: #141413;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.suggested-recipe-container h3 {
+  color: #141413;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.suggested-recipe-container ul,
+.suggested-recipe-container ol {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.suggested-recipe-container ul li,
+.suggested-recipe-container ol li {
+  margin-bottom: 8px;
+}
+
+.suggested-recipe-container p {
+  margin: 12px 0;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  color: #6b7280;
+}
+
+.empty-state h3 {
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 900px) {
+  main {
+    padding: 24px 20px 10px;
+  }
+
+  .get-recipe-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  .get-recipe-btn {
+    align-self: flex-end;
+  }
+
+  .sidebar.mobile .sidebar-header {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 20px 16px 10px;
+  }
+
+  .suggested-recipe-container {
+    font-size: 1rem;
+    padding: 16px;
+  }
+
+  .add-ingredient-form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .add-ingredient-form input,
+  .add-ingredient-form button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .get-recipe-container {
+    padding: 12px 16px;
+  }
+
+  .get-recipe-btn {
+    align-self: stretch;
+    text-align: center;
+  }
+}
+
+/* =====================
+   SMALL PHONES
+===================== */
+@media (max-width: 360px) {
+  .sidebar.mobile.open {
+    width: 85vw;
+  }
+}
+
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
