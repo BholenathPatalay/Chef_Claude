@@ -1,6 +1,7 @@
+import "../config/env.js";
 import { auth } from "express-oauth2-jwt-bearer";
 
 export const checkJwt = auth({
-  audience: "https://chefclaude.api",
-  issuerBaseURL: "https://dev-zqyo5x8qp31v8sgw.us.auth0.com/",
+  audience: process.env.AUTH0_AUDIENCE,
+  issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL,
 });
