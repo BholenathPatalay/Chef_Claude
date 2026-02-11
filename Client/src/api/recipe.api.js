@@ -4,25 +4,24 @@ export function useRecipeApi() {
   const api = useAuthAxios();
 
   async function generateRecipe(ingredients) {
-    const res = await api.post("/recipes/generate", {
+    const res = await api.post("/api/recipes/generate", {
       ingredients,
     });
-
     return res.data;
   }
 
   async function fetchRecipes() {
-    const res = await api.get("/recipes");
+    const res = await api.get("/api/recipes");
     return res.data;
   }
 
   async function fetchRecipeById(id) {
-    const res = await api.get(`/recipes/${id}`);
+    const res = await api.get(`/api/recipes/${id}`);
     return res.data;
   }
 
   async function deleteRecipe(id) {
-    const res = await api.delete(`/recipes/${id}`);
+    const res = await api.delete(`/api/recipes/${id}`);
     return res.data;
   }
 
