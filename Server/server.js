@@ -1,27 +1,26 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-
 import recipeRoutes from "./routes/recipe.routes.js";
 
 const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://chef-claude-8zk2.vercel.app/",
+  "https://chef-claude-8zk2.vercel.app",
 ];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
+    origin: (origin, callback) => {
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(null, false);
       }
     },
     credentials: true,
-    methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
