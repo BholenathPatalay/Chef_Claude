@@ -4,7 +4,7 @@ Chef Claude is an AI-powered recipe generator web application that allows users 
 
 
 <p align="center">
-  <img src="./screenshots/chef-claude.png" width="900">
+  <img src="https://github.com/user-attachments/assets/20e9dae3-b85b-4fb5-887b-8f4424d63784" width="900">
 </p>
 
 
