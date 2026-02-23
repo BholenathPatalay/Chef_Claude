@@ -3,7 +3,9 @@
 Chef Claude is an AI-powered recipe generator web application that allows users to input the ingredients they have and get a complete, AI-generated recipe in response. The application includes **secure authentication** with Auth0, **real-time AI integration** using Groq, and **persistent recipe storage** for each user.
 
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/20e9dae3-b85b-4fb5-887b-8f4424d63784" />
+<p align="center">
+  <img src="./screenshots/chef-claude.png" width="900">
+</p>
 
 
 ---
